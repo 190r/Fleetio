@@ -1,5 +1,6 @@
 package com.fleetio.domain.repository
 
+import com.fleetio.domain.model.Comment
 import com.fleetio.domain.model.VehicleDetail
 import retrofit2.Response
 import retrofit2.http.GET
@@ -23,5 +24,8 @@ interface VehicleFleetApi {
      */
     @GET("api/v1/vehicles")
     suspend fun getFleetByPage(@Query("page") pageNumber: Int): Response<List<VehicleDetail>>
+
+    @GET("api/v1/comments/{id}")
+    suspend fun getVehicleCommentsByID(@Path("id") id: Int): Comment
 
 }

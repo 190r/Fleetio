@@ -1,6 +1,5 @@
 package com.fleetio.presentation.screen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -13,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -65,7 +65,8 @@ fun VehicleInfoScreen(
         // Progress Bar display
         if (vehicleState.isLoading) {
             CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
+                color = Color.Green
             )
         }
     }
@@ -94,6 +95,11 @@ fun VehicleInfoDisplay(
             .height(10.dp))
         // Map View
         SetGeolocationData(vehicle = vehicle)
+        Spacer(modifier = Modifier
+            .fillMaxWidth()
+            .height(10.dp))
+        // Comments View
+        VehicleCommentsView()
     }
 }
 
@@ -144,7 +150,6 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(4.dp, 0.dp, 0.dp, 8.dp)
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -158,7 +163,7 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
                         .align(Alignment.CenterVertically)
-                        .size(140.dp, 140.dp),
+                        .size(180.dp, 180.dp),
                     contentDescription = specs.createdAt
                 )
 
@@ -178,7 +183,9 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                         textAlign = TextAlign.Start,
                         fontSize = 10.sp
                     )
-                    val fuel = stringResource(id = R.string.vehicle_fuel, specs.fuelQuality)
+                    val fuel = stringResource(
+                        id = R.string.vehicle_fuel,
+                        specs.fuelQuality)
                     Text(
                         text = fuel,
                         modifier = Modifier
@@ -198,6 +205,44 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                             .fillMaxWidth()
                             .padding(0.dp, 0.dp, 0.dp, 2.dp)
                             .semantics { contentDescription = weight },
+                        textAlign = TextAlign.Start,
+                        fontSize = 10.sp
+                    )
+                    val cylinders = stringResource(
+                        id = R.string.vehicle_engine_cylinders,
+                        "${specs.engineCylinders}")
+                    Text(
+                        text = cylinders,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 0.dp, 0.dp, 2.dp)
+                            .semantics { contentDescription = cylinders },
+                        textAlign = TextAlign.Start,
+                        fontSize = 10.sp
+                    )
+                    val engineBrand = stringResource(
+                        id = R.string.vehicle_engine_brand,
+                        specs.engineBrand
+                    )
+                    Text(
+                        text = engineBrand,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 0.dp, 0.dp, 2.dp)
+                            .semantics { contentDescription = engineBrand },
+                        textAlign = TextAlign.Start,
+                        fontSize = 10.sp
+                    )
+                    val passengerVolume = stringResource(
+                        id = R.string.vehicle_passenger_volume,
+                        specs.passengerVolume
+                    )
+                    Text(
+                        text = passengerVolume,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 0.dp, 0.dp, 2.dp)
+                            .semantics { contentDescription = passengerVolume },
                         textAlign = TextAlign.Start,
                         fontSize = 10.sp
                     )
@@ -241,6 +286,43 @@ fun SetGeolocationData(vehicle: VehicleDetail) {
                             )
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun VehicleCommentsView() {
+    val viewModel: VehicleDetailScreenViewModel = hiltViewModel()
+    val commentState = viewModel.userComment.value
+
+    commentState.userComment?.let { commentText ->
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(260.dp),
+            elevation = 10.dp,
+            shape = RoundedCornerShape(10.dp)
+        ) {
+            Box {
+                Text(text = commentText.comment, modifier = Modifier.fillMaxSize())
+                if (commentState.apiError.isNotBlank()) {
+                    Text(
+                        text = commentState.apiError,
+                        color = MaterialTheme.colors.error,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .align(Alignment.Center)
+                    )
+                }
+                if (commentState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center),
+                        color = Color.Green
+                    )
                 }
             }
         }

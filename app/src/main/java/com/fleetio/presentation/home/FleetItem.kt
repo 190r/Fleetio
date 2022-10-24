@@ -33,7 +33,7 @@ fun FleetItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick(vehicle) }
-            .height(180.dp),
+            .height(160.dp),
         elevation = 10.dp,
         shape = RoundedCornerShape(10.dp)
     ) {
@@ -97,15 +97,6 @@ fun FleetItem(
                         textAlign = TextAlign.Start,
                         fontSize = 10.sp
                     )
-                    val trim = stringResource(id = R.string.vehicle_trim, "${vehicle.trim ?: R.string.vehicle_unknown}")
-                    Text(
-                        text = trim,
-                        modifier = Modifier
-                            .padding(20.dp, 0.dp, 0.dp, 4.dp)
-                            .semantics { contentDescription = trim },
-                        textAlign = TextAlign.Start,
-                        fontSize = 10.sp
-                    )
                     val year = stringResource(id = R.string.vehicle_year, "${vehicle.year ?: R.string.vehicle_unknown}")
                     Text(
                         text = year,
@@ -115,15 +106,15 @@ fun FleetItem(
                         textAlign = TextAlign.Start,
                         fontSize = 10.sp
                     )
-                    val vin = stringResource(id = R.string.vehicle_vin, "${vehicle.vin ?: R.string.vehicle_unknown}")
-                    Text(
-                        text = vin,
-                        modifier = Modifier
-                            .padding(20.dp, 0.dp, 0.dp, 4.dp)
-                            .semantics { contentDescription = vin },
-                        textAlign = TextAlign.Start,
-                        fontSize = 10.sp
-                    )
+//                    val vin = stringResource(id = R.string.vehicle_vin, "${vehicle.vin ?: R.string.vehicle_unknown}")
+//                    Text(
+//                        text = vin,
+//                        modifier = Modifier
+//                            .padding(20.dp, 0.dp, 0.dp, 4.dp)
+//                            .semantics { contentDescription = vin },
+//                        textAlign = TextAlign.Start,
+//                        fontSize = 10.sp
+//                    )
                     val ownership = stringResource(id = R.string.vehicle_ownership_status, "${vehicle.ownership ?: R.string.vehicle_unknown}")
                     Text(
                         text = ownership,

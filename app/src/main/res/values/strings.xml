@@ -14,6 +14,10 @@
     <string name="vehicle_info_page_title">Vehicle Info For: %1$s</string>
     <string name="vehicle_engine">Vehicle Engine Brand: %1$s</string>
     <string name="vehicle_fuel">Vehicle Fuel Quality: %1$s</string>
+    <string name="vehicle_engine_cylinders">Engine Cylinders: %1$s</string>
+    <string name="vehicle_engine_brand">Engine Brand: %1$s</string>
+    <string name="vehicle_passenger_volume">Passenger Volume: %1$s</string>
     <string name="vehicle_weight_rating">Vehicle Gross Weight: %1$s</string>
+    <string name="vehicles_api_error">Unexpected API error occurred</string>
 
 </resources>
