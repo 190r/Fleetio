@@ -30,7 +30,6 @@ import com.fleetio.R
 import com.fleetio.common.getVehicles
 import com.fleetio.domain.model.Specs
 import com.fleetio.domain.model.VehicleDetail
-import com.fleetio.presentation.VehicleDetailScreenViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
@@ -99,7 +98,7 @@ fun VehicleInfoDisplay(
             .fillMaxWidth()
             .height(10.dp))
         // Comments View
-        VehicleCommentsView(vehicle.id)
+        VehicleCommentsView()
     }
 }
 
@@ -304,10 +303,11 @@ fun SetGeolocationData(vehicle: VehicleDetail) {
 }
 
 @Composable
-fun VehicleCommentsView(vehicleId: Int) {
+fun VehicleCommentsView() {
     val viewModel: VehicleDetailScreenViewModel = hiltViewModel()
 
-    viewModel.getCommentsByVehicleId(vehicleId)?.let { commentText ->
+    val commentState = viewModel.userComment.value
+    commentState.userComment?.let { commentText ->
         Card(
             modifier = Modifier
                 .fillMaxWidth()

@@ -20,12 +20,15 @@ interface VehicleFleetApi {
     suspend fun queryVehicles(@QueryMap queries: Map<String, String>): List<VehicleDetail>
 
     /**
-     * Enables pagination support
+     * With pagination
      */
     @GET("api/v1/vehicles")
     suspend fun getFleetByPage(@Query("page") pageNumber: Int): Response<List<VehicleDetail>>
 
     @GET("api/v1/comments")
     suspend fun getVehicleCommentsById(): List<Comment>
+
+    @GET("api/v1/comments")
+    suspend fun queryVehicleComments(@Query("q[commentable_id]") id: String): Comment
 
 }

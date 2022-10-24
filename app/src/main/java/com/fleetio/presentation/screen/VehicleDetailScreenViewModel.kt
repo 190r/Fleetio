@@ -1,4 +1,4 @@
-package com.fleetio.presentation
+package com.fleetio.presentation.screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +8,9 @@ import com.fleetio.common.ApiResponse
 import com.fleetio.domain.model.Comment
 import com.fleetio.domain.use_case.GetCommentsUseCase
 import com.fleetio.domain.use_case.GetVehicleByIdUseCase
+import com.fleetio.domain.use_case.QueryCommentsUseCase
+import com.fleetio.presentation.VehicleCommentState
+import com.fleetio.presentation.VehicleInfoState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -16,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VehicleDetailScreenViewModel @Inject constructor(
     private val vehicleById: GetVehicleByIdUseCase,
-    private val comments: GetCommentsUseCase,
+    private val comments: QueryCommentsUseCase,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -29,8 +32,8 @@ class VehicleDetailScreenViewModel @Inject constructor(
     init {
         savedStateHandle.get<String>("id")?.let { vehicleId ->
             getVehicleById(vehicleId)
+            getUserComments(vehicleId)
         }
-        getUserComments()
     }
 
     private fun getVehicleById(id: String) {
@@ -52,11 +55,11 @@ class VehicleDetailScreenViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun getUserComments() {
-        comments().onEach { comment ->
+    private fun getUserComments(vehicleId: String) {
+        comments(vehicleId).onEach { comment ->
             when(comment) {
                 is ApiResponse.Success -> {
-                    _userComment.value = VehicleCommentState(userComment = comment.data ?: emptyList())
+                    _userComment.value = VehicleCommentState(userComment = comment.data)
                 }
                 is ApiResponse.Error -> {
                     _userComment.value = VehicleCommentState(apiError = comment.message ?: "Unexpected error occurred")
@@ -70,11 +73,4 @@ class VehicleDetailScreenViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-
-    fun getCommentsByVehicleId(id: Int): Comment? {
-        val comments = _userComment.value.userComment
-        return comments?.firstOrNull { it.commentableId == id }
-    }
-
-
 }

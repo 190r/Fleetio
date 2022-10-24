@@ -17,7 +17,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.fleetio.domain.model.VehicleDetail
-import com.fleetio.presentation.HomeScreenViewModel
 import com.fleetio.presentation.Screen
 
 @Composable

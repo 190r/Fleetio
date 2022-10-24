@@ -1,4 +1,4 @@
-package com.fleetio.presentation
+package com.fleetio.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

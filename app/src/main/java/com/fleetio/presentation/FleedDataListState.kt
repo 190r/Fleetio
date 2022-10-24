@@ -14,6 +14,6 @@ data class VehicleInfoState(
 
 data class VehicleCommentState(
     val isLoading: Boolean = false,
-    val userComment: List<Comment>? = emptyList(),
+    val userComment: Comment? = null,
     val apiError: String = ""
 )
