@@ -8,7 +8,7 @@ The Home Screen displays paginated list of vehicles, with vehicle photo or place
 
 Detailed vehicle info screen shows vehicle specification and vehicle location:
 
-![Screenshot 2022-10-24 at 12 11 22 PM](https://user-images.githubusercontent.com/4239086/197606805-7622b40c-a059-4b53-a3c2-fff5c21f942a.png)
+![Screenshot 2022-10-24 at 12 14 26 PM](https://user-images.githubusercontent.com/4239086/197607142-94a7e5d8-d221-4ad3-add3-894b976f0bed.png)
 
 
 ## How to build project
