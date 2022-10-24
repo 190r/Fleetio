@@ -99,7 +99,7 @@ fun VehicleInfoDisplay(
             .fillMaxWidth()
             .height(10.dp))
         // Comments View
-        VehicleCommentsView()
+        VehicleCommentsView(vehicle.id)
     }
 }
 
@@ -171,9 +171,33 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.CenterVertically)
-                        .padding(4.dp, 0.dp, 0.dp, 4.dp)
+                        .padding(10.dp, 0.dp, 0.dp, 4.dp)
                 ) {
-                    val engine = stringResource(id = R.string.vehicle_engine, specs.engineBrand)
+                    Text(
+                        text = stringResource(id = R.string.vehicle_spec_title),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(14.dp, 0.dp, 0.dp, 2.dp),
+                        textAlign = TextAlign.Start,
+                        fontSize = 14.sp
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    val description = stringResource(
+                        id = R.string.vehicle_engine_description,
+                        specs.engineDescription ?: R.string.vehicle_item_info_unavailable
+                    )
+                    Text(
+                        text = description,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 0.dp, 0.dp, 2.dp)
+                            .semantics { contentDescription = description },
+                        textAlign = TextAlign.Start,
+                        fontSize = 10.sp
+                    )
+                    val engine = stringResource(
+                        id = R.string.vehicle_engine,
+                        specs.engineBrand  ?: R.string.vehicle_item_info_unavailable)
                     Text(
                         text = engine,
                         modifier = Modifier
@@ -185,7 +209,7 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                     )
                     val fuel = stringResource(
                         id = R.string.vehicle_fuel,
-                        specs.fuelQuality)
+                        specs.fuelQuality ?: R.string.vehicle_item_info_unavailable)
                     Text(
                         text = fuel,
                         modifier = Modifier
@@ -197,7 +221,7 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                     )
                     val weight = stringResource(
                         id = R.string.vehicle_weight_rating,
-                        "${specs.grossVehicleWeightRating}"
+                        "${specs.grossVehicleWeightRating  ?: R.string.vehicle_item_info_unavailable}"
                     )
                     Text(
                         text = weight,
@@ -210,7 +234,7 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                     )
                     val cylinders = stringResource(
                         id = R.string.vehicle_engine_cylinders,
-                        "${specs.engineCylinders}")
+                        "${specs.engineCylinders ?: R.string.vehicle_item_info_unavailable}")
                     Text(
                         text = cylinders,
                         modifier = Modifier
@@ -220,22 +244,9 @@ fun VehicleSpecs(specs: Specs, imageUrl: String?) {
                         textAlign = TextAlign.Start,
                         fontSize = 10.sp
                     )
-                    val engineBrand = stringResource(
-                        id = R.string.vehicle_engine_brand,
-                        specs.engineBrand
-                    )
-                    Text(
-                        text = engineBrand,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(0.dp, 0.dp, 0.dp, 2.dp)
-                            .semantics { contentDescription = engineBrand },
-                        textAlign = TextAlign.Start,
-                        fontSize = 10.sp
-                    )
                     val passengerVolume = stringResource(
                         id = R.string.vehicle_passenger_volume,
-                        specs.passengerVolume
+                        specs.passengerVolume ?: R.string.vehicle_item_info_unavailable
                     )
                     Text(
                         text = passengerVolume,
@@ -293,11 +304,10 @@ fun SetGeolocationData(vehicle: VehicleDetail) {
 }
 
 @Composable
-fun VehicleCommentsView() {
+fun VehicleCommentsView(vehicleId: Int) {
     val viewModel: VehicleDetailScreenViewModel = hiltViewModel()
-    val commentState = viewModel.userComment.value
 
-    commentState.userComment?.let { commentText ->
+    viewModel.getCommentsByVehicleId(vehicleId)?.let { commentText ->
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -307,23 +317,15 @@ fun VehicleCommentsView() {
         ) {
             Box {
                 Text(text = commentText.comment, modifier = Modifier.fillMaxSize())
-                if (commentState.apiError.isNotBlank()) {
-                    Text(
-                        text = commentState.apiError,
-                        color = MaterialTheme.colors.error,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
-                            .align(Alignment.Center)
-                    )
-                }
-                if (commentState.isLoading) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center),
-                        color = Color.Green
-                    )
-                }
+                Text(
+                    text = commentText.comment,
+                    color = MaterialTheme.colors.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.Center)
+                )
             }
         }
     }
@@ -335,4 +337,3 @@ fun VehicleDisplayPreview() {
     val vehicle = getVehicles(LocalContext.current).let { it[5] }
     VehicleInfoDisplay(vehicle)
 }
-

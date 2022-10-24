@@ -106,15 +106,6 @@ fun FleetItem(
                         textAlign = TextAlign.Start,
                         fontSize = 10.sp
                     )
-//                    val vin = stringResource(id = R.string.vehicle_vin, "${vehicle.vin ?: R.string.vehicle_unknown}")
-//                    Text(
-//                        text = vin,
-//                        modifier = Modifier
-//                            .padding(20.dp, 0.dp, 0.dp, 4.dp)
-//                            .semantics { contentDescription = vin },
-//                        textAlign = TextAlign.Start,
-//                        fontSize = 10.sp
-//                    )
                     val ownership = stringResource(id = R.string.vehicle_ownership_status, "${vehicle.ownership ?: R.string.vehicle_unknown}")
                     Text(
                         text = ownership,

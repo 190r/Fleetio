@@ -35,7 +35,7 @@ data class Specs(
     @SerializedName("engine_bore_with_units")
     val engineBoreWithUnits: Any?,
     @SerializedName("engine_brand")
-    val engineBrand: String,
+    val engineBrand: String?,
     @SerializedName("engine_cam_type")
     val engineCamType: Any?,
     @SerializedName("engine_compression")
@@ -43,7 +43,7 @@ data class Specs(
     @SerializedName("engine_cylinders")
     val engineCylinders: Any?,
     @SerializedName("engine_description")
-    val engineDescription: String,
+    val engineDescription: String?,
     @SerializedName("engine_displacement")
     val engineDisplacement: Any?,
     @SerializedName("engine_stroke")
@@ -67,7 +67,7 @@ data class Specs(
     @SerializedName("fuel_induction")
     val fuelInduction: Any?,
     @SerializedName("fuel_quality")
-    val fuelQuality: String,
+    val fuelQuality: String?,
     @SerializedName("fuel_tank_2_capacity")
     val fuelTank2Capacity: Double?,
     @SerializedName("fuel_tank_capacity")
@@ -97,7 +97,7 @@ data class Specs(
     @SerializedName("oil_capacity")
     val oilCapacity: Any?,
     @SerializedName("passenger_volume")
-    val passengerVolume: String,
+    val passengerVolume: String?,
     @SerializedName("rear_axle_type")
     val rearAxleType: String,
     @SerializedName("rear_tire_psi")
