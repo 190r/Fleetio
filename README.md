@@ -11,7 +11,8 @@
  - Squerup Retrofit2
 
 ## TODO Items
+- Add Instrumentaion (Integration) tests (in progress)
+- Add Unit Tests (in progress)
 - Add support for filtering vehicle listing
-- Display comments for the vehicle
-- Add Instrumentaion (Integration) tests
-- Add Unit Tests
+- Display comments for the vehicle on Vehicle Detail screen
+- Add Splash Screen
