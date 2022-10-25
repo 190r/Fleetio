@@ -1,6 +1,6 @@
 package com.fleetio.presentation
 
-import com.fleetio.domain.model.Comment
+import com.fleetio.domain.model.CommentItem
 import com.fleetio.domain.model.VehicleDetail
 
 /**
@@ -14,6 +14,6 @@ data class VehicleInfoState(
 
 data class VehicleCommentState(
     val isLoading: Boolean = false,
-    val userComment: Comment? = null,
+    val userComments: List<CommentItem> = emptyList(),
     val apiError: String = ""
 )

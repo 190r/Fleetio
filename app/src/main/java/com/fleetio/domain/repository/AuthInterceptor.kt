@@ -8,6 +8,7 @@ import okhttp3.Response
  * OkHttp Interceptor to add authentication and account tokens
  */
 class AuthInterceptor: Interceptor {
+    private val TAG = "AuthInterceptor"
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()

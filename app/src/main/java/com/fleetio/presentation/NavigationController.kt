@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.fleetio.presentation.home.HomeScreen
-import com.fleetio.presentation.screen.VehicleInfoScreen
+import com.fleetio.presentation.detail.VehicleInfoScreen
 
 @Composable
 fun AppNavigationGraph() {

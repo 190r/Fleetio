@@ -1,6 +1,7 @@
 package com.fleetio.domain.repository
 
 import com.fleetio.domain.model.Comment
+import com.fleetio.domain.model.CommentItem
 import com.fleetio.domain.model.VehicleDetail
 import retrofit2.Response
 import retrofit2.http.GET
@@ -29,6 +30,6 @@ interface VehicleFleetApi {
     suspend fun getVehicleCommentsById(): List<Comment>
 
     @GET("api/v1/comments")
-    suspend fun queryVehicleComments(@Query("q[commentable_id]") id: String): Comment
+    suspend fun queryVehicleComments(@Query("q[commentable_id]") id: String): List<CommentItem>
 
 }

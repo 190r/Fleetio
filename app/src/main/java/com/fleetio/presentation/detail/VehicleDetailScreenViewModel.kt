@@ -1,12 +1,11 @@
-package com.fleetio.presentation.screen
+package com.fleetio.presentation.detail
 
+import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import com.fleetio.common.ApiResponse
-import com.fleetio.domain.model.Comment
-import com.fleetio.domain.use_case.GetCommentsUseCase
 import com.fleetio.domain.use_case.GetVehicleByIdUseCase
 import com.fleetio.domain.use_case.QueryCommentsUseCase
 import com.fleetio.presentation.VehicleCommentState
@@ -24,10 +23,10 @@ class VehicleDetailScreenViewModel @Inject constructor(
 ): ViewModel() {
 
     private val _vehicle = mutableStateOf(VehicleInfoState())
-    val vehicle = _vehicle
+    val vehicle: State<VehicleInfoState> = _vehicle
 
     private val _userComment = mutableStateOf(VehicleCommentState())
-    val userComment = _userComment
+    val userComment: State<VehicleCommentState> = _userComment
 
     init {
         savedStateHandle.get<String>("id")?.let { vehicleId ->
@@ -59,7 +58,7 @@ class VehicleDetailScreenViewModel @Inject constructor(
         comments(vehicleId).onEach { comment ->
             when(comment) {
                 is ApiResponse.Success -> {
-                    _userComment.value = VehicleCommentState(userComment = comment.data)
+                    _userComment.value = VehicleCommentState(userComments = comment.data!!)
                 }
                 is ApiResponse.Error -> {
                     _userComment.value = VehicleCommentState(apiError = comment.message ?: "Unexpected error occurred")

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Contact(
     @SerializedName("default_image")
-    val defaultImage: Any?,
+    val defaultImage: DefaultImage??,
     @SerializedName("email")
     val email: String,
     @SerializedName("full_name")

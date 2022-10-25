@@ -1,4 +1,4 @@
-package com.fleetio.presentation.screen
+package com.fleetio.presentation.detail
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -297,35 +297,6 @@ fun SetGeolocationData(vehicle: VehicleDetail) {
                         }
                     }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun VehicleCommentsView() {
-    val viewModel: VehicleDetailScreenViewModel = hiltViewModel()
-
-    val commentState = viewModel.userComment.value
-    commentState.userComment?.let { commentText ->
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(260.dp),
-            elevation = 10.dp,
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Box {
-                Text(text = commentText.comment, modifier = Modifier.fillMaxSize())
-                Text(
-                    text = commentText.comment,
-                    color = MaterialTheme.colors.error,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                        .align(Alignment.Center)
-                )
             }
         }
     }
