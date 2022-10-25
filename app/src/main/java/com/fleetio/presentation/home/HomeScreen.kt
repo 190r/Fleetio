@@ -34,7 +34,7 @@ fun HomeScreen(navController: NavController) {
                 vehicle?.let { v ->
                     FleetItem(
                         vehicle = v,
-                        onItemClick = { navController.navigate(Screen.VehicleInfolDisplay.route + "/${v.id}") })
+                        onItemClick = { navController.navigate(Screen.VehicleInfoDisplay.route + "/${v.id}") })
                 }
             }
             fleetItems.apply {

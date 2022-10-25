@@ -30,6 +30,6 @@ interface VehicleFleetApi {
     suspend fun getVehicleCommentsById(): List<Comment>
 
     @GET("api/v1/comments")
-    suspend fun queryVehicleComments(@Query("q[commentable_id]") id: String): List<CommentItem>
+    suspend fun queryVehicleComments(@Query("q[commentable_id_eq]") id: String): List<CommentItem>
 
 }
